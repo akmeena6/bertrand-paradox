@@ -1,1 +1,1 @@
-# bertrand-paradox
+# Bertrand-paradox
