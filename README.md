@@ -20,6 +20,10 @@
         <p>=>If this distance is less than the side of triangle,that will be our favorable outcome,My code is also doing the same by iterating over all chords</p>
         <p>=>At last probability is calculated using the formula {favorable outcomes/n}.</p>
     </div>
-    <div>
+   <div>
         <p><h3>Third Method</h3></p>
+        <p>For drawing n chords,we will take n random points on radius (here OP)</p>
+        <p>with the help of the coordinates of the random points,and coordinates of chord's end point on the circle is calculted(just for chord drawing purpose for matplotlib)</p>
+        <p>Our favourable outcomes are the points whose distance from the center is more than r/2(here 2.5),my code is also doing the same by calculating distances and comparing by iterating over all n random chords</p>
+        <p>Finally probability is calculated using the formula {favorable outcomes/n}.</p>
     </div>
