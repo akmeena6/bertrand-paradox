@@ -29,7 +29,7 @@ class Bertrands_paradox:
         self.ax.plot(x, y, color='cyan', marker='o', label='P')
 
         # calculate the other 2 points of the equilateral triangle
-        # rotate P by 60, 120 degrees => A, B points
+        # rotate P by 120 & 2400 degrees => A, B points
         angle = np.deg2rad(120)
         x = P[0] * np.cos(angle) - (P[1] * np.sin(angle))
         y = P[0] * np.sin(angle) + (P[1] * np.cos(angle))
@@ -49,11 +49,48 @@ class Bertrands_paradox:
         points = np.vstack([points, [P[0], P[1]]])
         self.ax.plot(points[:, 0], points[:, 1], linewidth=2, color='blue', label='equilateral triangle')
 
+
+
     def first_method(self):
-        r = float(input('r = '))
+        r = 5
+        n = int(input('n = '))
+        self.fig.suptitle('Bertrandom paradox, 3rd method')
+        self.draw_circle(r)
+
+        # get a fixed P point on the circumference
+        alpha = random() * (2 * np.pi)
+        P = x, y = r * np.cos(alpha), r * np.sin(alpha)
+        self.draw_triangle(P)
+
+        # draw a smaller circle
+        circle = plt.Circle((0, 0), r / 2, color='grey', fill=False)
+        self.ax.add_artist(circle)
+
+        favorable = 0
+        for i in range(n):
+            # generate a new point within the circle
+            alpha = random() * (2 * np.pi)
+            random_r = math.sqrt(random())
+            x, y = random_r * r * np.cos(alpha), random_r * r * np.sin(alpha)
+            # the new point
+            new_pt = (x, y)
+            if self.distance(new_pt, (0, 0)) <= r / 2:
+                plt.plot(x, y, color='green', marker='.')
+                favorable += 1
+            else:
+                plt.plot(x, y, color='red', marker='.')
+
+        print('Probability = {0}/{1} = {2}'.format(favorable, n, favorable / n))
+        plt.title('Probability = {0}/{1} = {2}'.format(favorable, n, favorable / n))
+
+        plt.legend(loc = 1)
+        plt.grid()
+        plt.show()
+    def second_method(self):
+        r = 5
         n = int(input('n = '))
 
-        self.fig.suptitle('Bertrand paradox, 1st method')
+        self.fig.suptitle('Bertrandom paradox, 1st method')
         self.draw_circle(r)
 
         # get a fixed P point on the circumference
@@ -77,21 +114,21 @@ class Bertrands_paradox:
                 self.ax.plot([P[0], x], [P[1], y], color='red')
 
         print('{0}/{1} = {2}'.format(favorable, n, favorable/n))
+        plt.title('Probability = {0}/{1} = {2}'.format(favorable, n, favorable/n))
 
-        plt.legend()
+        plt.legend(loc = 1)
         plt.grid()
         plt.show()
-
-    def second_method(self):
-        r = float(input('r = '))
+    def third_method(self):
+        r = 5
         n = int(input('n = '))
-        self.fig.suptitle('Bertrand paradox, 2nd method')
+        self.fig.suptitle('Bertrandom paradox, 2nd method')
         self.draw_circle(r)
 
         # draw a random radius
         alpha = random() * (2 * np.pi)
         x, y = r * np.cos(alpha), r * np.sin(alpha)
-        plt.plot([0, x], [0, y], color='black', linewidth=3, label='radius')
+        plt.plot([0, x], [0, y], color='black', linewidth = 3, label='radius')
 
         # perpendicular angle to alpha
         beta = abs(alpha - np.pi/2)
@@ -101,7 +138,7 @@ class Bertrands_paradox:
         self.draw_triangle(P)
 
         A = r_middlex, r_middley = r / 2 * np.cos(alpha), r / 2 * np.sin(alpha)
-        plt.plot(r_middlex, r_middley, color='darkblue', marker='o', label='middle of the radius')
+        plt.plot(r_middlex, r_middley, color='darkblue', marker='o', label='mid point of the radius')
 
         favorable = 0
         for i in range(n):
@@ -124,41 +161,6 @@ class Bertrands_paradox:
                 favorable += 1
 
         print('{0}/{1} = {2}'.format(favorable, n, favorable / n))
-
-        plt.legend()
-        plt.grid()
-        plt.show()
-
-    def third_method(self):
-        r = float(input('r = '))
-        n = int(input('n = '))
-        self.fig.suptitle('Bertrand paradox, 3rd method')
-        self.draw_circle(r)
-
-        # get a fixed P point on the circumference
-        alpha = random() * (2 * np.pi)
-        P = x, y = r * np.cos(alpha), r * np.sin(alpha)
-        self.draw_triangle(P)
-
-        # draw a smaller circle
-        circle = plt.Circle((0, 0), r / 2, color='grey', fill=False)
-        self.ax.add_artist(circle)
-
-        favorable = 0
-        for i in range(n):
-            # generate a new point within the circle
-            alpha = random() * (2 * np.pi)
-            rand_r = math.sqrt(random())
-            x, y = rand_r * r * np.cos(alpha), rand_r * r * np.sin(alpha)
-            # the new point
-            new_pt = (x, y)
-            if self.distance(new_pt, (0, 0)) <= r / 2:
-                plt.plot(x, y, color='green', marker='.')
-                favorable += 1
-            else:
-                plt.plot(x, y, color='red', marker='.')
-
-        print('Probability = {0}/{1} = {2}'.format(favorable, n, favorable / n))
         plt.title('Probability = {0}/{1} = {2}'.format(favorable, n, favorable / n))
 
         plt.legend(loc = 1)
